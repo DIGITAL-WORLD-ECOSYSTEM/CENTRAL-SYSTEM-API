@@ -51,8 +51,15 @@ compliance.post(
     const adminKey = c.req.header('x-admin-key') ?? '';
     const db = c.get('db');
 
+    // Guard: ADMIN_PASSWORD deve estar configurado como secret no Cloudflare
+    const adminPassword = c.env.ADMIN_PASSWORD;
+    if (!adminPassword) {
+      return c.json({ success: false, message: "Configuração de segurança ausente. Contate o administrador." }, 500);
+    }
+
     // SEC-02: Comparação em tempo constante (previne timing attacks)
-    if (!timingSafeEqual(adminKey, c.env.ADMIN_PASSWORD ?? '')) {
+    // Rejeita também se adminKey estiver vazio
+    if (!adminKey || !timingSafeEqual(adminKey, adminPassword)) {
       return c.json({ success: false, message: "Unauthorized" }, 401);
     }
 
