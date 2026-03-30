@@ -1,0 +1,37 @@
+name = "gov-system-backend"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = [ "nodejs_compat" ]
+
+[observability.logs]
+enabled = false
+invocation_logs = true
+
+# Servir arquivos estáticos do Dashboard Frontend nativo (CSS, JS, Imagens, Mocks)
+[assets]
+directory = "public"
+
+# ==============================================================
+# Cloudflare Workers Configuration
+# ==============================================================
+
+# Database
+[[d1_databases]]
+binding = "DB"
+database_name = "gov-db"
+database_id = "3640ec92-fb3c-4676-b9bc-174735fa3389"
+migrations_dir = "migrations"
+
+# Storage
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "socialfi"
+
+# Caching and Auth Speed (Nonces, Metrics)
+[[kv_namespaces]]
+binding = "KV_AUTH"
+id = "48d7f62733794b62b0a2c0f9049984e1"
+
+[[kv_namespaces]]
+binding = "KV_CACHE"
+id = "8a05d6f497e64e628fa34bde0622ffd4"
