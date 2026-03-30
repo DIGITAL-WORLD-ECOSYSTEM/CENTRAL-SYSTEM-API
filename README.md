@@ -244,11 +244,11 @@ subgraph edge ["Cloudflare Edge"]
   K[(Workers KV)]
 end
 
-subgraph idp ["Camada de Identidade IdP"]
+subgraph idp ["Camada de Identidade - IdP"]
   C1[Auth Core]
   C2[MFA / TOTP]
   C3[Web3 SIWE]
-  C4[Compliance & KYC]
+  C4[Compliance e KYC]
 end
 
 subgraph data ["Persistência Híbrida"]
@@ -264,7 +264,7 @@ A -->|Requisições HTTP| C
 C -->|Checa Sessão e Nonce| K
 C --> C1
 
-%% Auth & Segurança
+%% Auth e Segurança
 C1 -->|Sessões e Usuários| D
 C1 -->|Eventos| F
 
@@ -285,7 +285,7 @@ C4 -->|Status KYC e Termos| D
 C4 -->|Upload Docs| E
 C4 -->|Eventos| F
 
-%% RWA & DAO Imutabilidade
+%% RWA e DAO Imutabilidade
 C -->|Metadados RWA e Propostas| I
 I -.->|CID| D
 ```
