@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { sign } from 'hono/jwt';
+import { sign, verify } from 'hono/jwt';
 import { zValidator } from '@hono/zod-validator';
 import { authenticator } from 'otplib';
 import { CryptoCore } from '@dao/shared';
@@ -360,5 +360,31 @@ identity.post(
     return c.json({ success: true, message: "Identidade revogada com sucesso." });
   }
 );
+
+// 8. Validação de Sessão JWT (/me)
+identity.get('/me', async (c) => {
+  try {
+    const authHeader = c.req.header('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return c.json({ success: false, message: 'Usuário não autenticado' }, 401);
+    }
+    const token = authHeader.split(' ')[1];
+    const payload = await verify(token, c.env.JWT_SECRET);
+    
+    // Retorna os dados codificados no token de volta para o AuthProvider do frontend
+    return c.json({
+      success: true,
+      user: {
+        username: payload.username,
+        did: payload.did,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        role: payload.role
+      }
+    });
+  } catch (err) {
+    return c.json({ success: false, message: 'Sessão inválida ou expirada' }, 401);
+  }
+});
 
 export default identity;

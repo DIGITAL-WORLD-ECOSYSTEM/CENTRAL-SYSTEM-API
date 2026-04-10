@@ -306,7 +306,8 @@ src/
 │   │   └── storage.ts       # IPFS Placeholder
 │   └── products/
 │       ├── agro/
-│       └── rwa/
+│       ├── rwa/
+│       └── real-estate/   # Real Estate Data & Pipeline (14 Tables)
 ├── services/
 │   └── audit.ts             # Logger de auditoria nativo
 └── middleware/
@@ -349,6 +350,8 @@ A documentação completa da API será disponibilizada via Swagger/OpenAPI. Abai
 | `POST` | `/api/core/identity/login`          | Handshake de login (D1 + KV).                    | AAL1     |
 | `GET`  | `/api/core/identity/did/:id`        | Resolve documento DID W3C.                        | Open     |
 | `POST` | `/api/posts`                        | Cria um novo post (SocialFi).                     | AAL1     |
+| `GET`  | `/api/products/real-estate`         | Lista imóveis (Real Estate).                      | Open     |
+| `POST` | `/api/products/real-estate`         | Cadastra novo imóvel (Real Estate).               | AAL1     |
 | `POST` | `/api/core/identity/totp/setup`     | Habilita MFA via TOTP.                            | AAL1     |
 | `POST` | `/api/core/compliance`              | Verifica status KYC.                              | AAL1     |
 | `GET`  | `/api/core/health`                  | Status da infraestrutura.                         | Open     |

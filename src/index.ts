@@ -27,6 +27,7 @@ import storageRouter from './routes/platform/storage';
 import agroRouter from './routes/products/agro';
 import rwaRouter from './routes/products/rwa';
 import blogRouter from './routes/products/blog';
+import realEstateRouter from './routes/products/real-estate';
 
 // Configuração de Tipagem do Hono
 type Variables = {
@@ -152,6 +153,7 @@ app.route('/api/platform/payments', paymentsRouter);
 app.route('/api/platform/storage', storageRouter);
 app.route('/api/products/agro', agroRouter);
 app.route('/api/products/rwa', rwaRouter);
+app.route('/api/products/real-estate', realEstateRouter);
 app.route('/api/posts', blogRouter); // SocialFi Integration
 
 // =================================================================
